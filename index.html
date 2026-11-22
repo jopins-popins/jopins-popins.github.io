@@ -110,6 +110,8 @@ body{font-family:"PT Mono",monospace}
 .cl{margin:0 0 1.3cqw;display:flex;gap:2.2cqw}
 .cl>span:first-child{flex:none;color:#6e0302}
 .give,.get{margin:3cqw 0 1.4cqw}
+.redline{flex:1;display:grid;gap:.25em;padding:.15em 0}
+.redline b{display:block;height:1.2em;background:linear-gradient(180deg,#120705,#0a0605 45%,#1a0604);box-shadow:0 0 1px #3a0000,0 0 3px rgba(90,0,0,.45)}
 .pad{position:relative;flex:1 1 26cqw;min-height:22cqw;border:1px dashed rgba(90,10,0,.45);background:rgba(120,20,10,.03);border-radius:2px}
 .pad canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
 .pad .ph{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:rgba(70,20,10,.45);font-size:.9em;text-align:center;padding:0 6%;transition:opacity .4s}
@@ -502,8 +504,8 @@ function contractHTML(){
   const n=new Date(),date=`«${n.getDate()}» ${MONTHS[n.getMonth()]} ${n.getFullYear()} г.`;
   const cl=[
     'Подписывая этот контракт, я подтверждаю отдачу.',
-    'Я подтверждаю, что отдаю добровольно. Тот, кто стоит у меня за спиной, здесь ни при чём.',
-    'Отданное не возвращается. Никогда. Даже если очень попросить.',
+    null,
+    'Отданное не подлежит возврату ни при каких обстоятельствах. Право требовать его назад утрачивается в момент подписания и не восстанавливается — ни в этой жизни, ни после неё.',
     'Взамен я получаю удачу Jopins. Когда и сколько — решает Jopins.',
     'Листов на столе всегда шесть. Я не буду их пересчитывать.',
     'Второй экземпляр этого контракта уже подписан.'
@@ -512,7 +514,7 @@ function contractHTML(){
   <div class="pno tw">КОНТРАКТ № 1</div>
   <div class="ptitle">${bloodSVG('УДАЧА',{len:500,drips:11,dur:7})}</div>
   <div class="pdate tw">${date} · <b id="clock">--:--:--</b></div>
-  ${cl.map((t,i)=>`<div class="cl"><span>${i+1}.</span><span class="tw">${t}</span></div>`).join('')}
+  ${cl.map((t,i)=>t===null?`<div class="cl"><span>${i+1}.</span><span class="redline" aria-label="зачёркнуто"><b style="width:97%;clip-path:polygon(0 12%,40% 0,100% 8%,99% 90%,55% 100%,1% 88%)"></b><b style="width:71%;clip-path:polygon(1% 6%,60% 0,100% 14%,98% 94%,30% 100%,0 86%)"></b></span></div>`:`<div class="cl"><span>${i+1}.</span><span class="tw">${t}</span></div>`).join('')}
   <div class="give tw">Я отдаю:</div>
   <div class="redact" aria-label="зачёркнуто">${scribble()}</div>
   <div class="get tw">Взамен получаю: <span class="red">удачу Jopins</span>.</div>
